@@ -1,7 +1,6 @@
 # 一、Git  
 
-Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如：Linux、kernel）,管理私人的文档和源代码也有很多优势（如：wsi-lgame-pro）.  
-![image](https://user-images.githubusercontent.com/100108104/209511977-3cb15d4e-2bb5-48d8-b05b-09d99629ac31.png)  
+Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如：Linux、kernel）,管理私人的文档和源代码也有很多优势（如：wsi-lgame-pro）.  ![image](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172148489.png)  
 
 ## 1、git clone  
 
@@ -454,7 +453,8 @@ git tag -a [name] -m 'yourMessage'
 # 二、Git与SVN比较  
 
 SVN是当前使用最多的版本控制工具。与它相比，Git最大的优势在于两点：易于本地增加分支和分布式的特性。  
-![image](https://user-images.githubusercontent.com/100108104/209512886-edac9759-0fcf-4c46-9d05-441f73037281.png)  
+![image](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172149000.png)  
+
 ## 1、本地增加分支  
 
 图中Git本地和服务器端结构都很灵活，所有版本都存储在一个目录中，你只需要进行分支的切换即可达到在某个分支工作的效果。  
