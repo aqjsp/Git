@@ -1,23 +1,3 @@
-大家好，我是Q。
-
-就在前几天，我上线了一个高性能C++内存池项目，直达链接---《》。
-
-也有好多小伙伴已经跟着我做的差不多了，而且反馈还不错！！！
-
-但是，我发现一个问题，有好几个小伙伴问我Git相关的东西，嗯.....没事儿，我上学那会儿也不咋用。。。
-
-不过，企业级项目开发中，版本控制系统是每个开发者不可或缺的工具。
-
-而Git，作为目前最流行、最强大的分布式版本控制系统，更是现代团队协作的基石。它不仅能帮你管理代码历史，还能让多人协作变得前所未有的顺畅和高效。
-
-所以，现在这个项目正好也适合大家去练习Git使用。
-
-那这篇文章就先给大家将Git从头到尾梳理一下，基础命令以及怎么使用。
-
-收藏起来！一定要学！！
-
-
-
 ## 一、Git核心概念
 
 Git之所以强大，在于其独特的设计哲学。它并非简单地存储文件的差异，而是以“快照流”的形式记录项目状态。
@@ -78,7 +58,7 @@ HEAD是一个特殊的指针，它总是指向你当前所在分支的最新提�
 
 当你切换分支时，HEAD也会随之移动，指向新分支的最新提交。
 
-![Git工作区、暂存区、版本库关系图](https://private-us-east-1.manuscdn.com/sessionFile/ahPm11OsXQvdW00NIIyMAD/sandbox/KzG4yBUxymdgfPZOpSnXxz-images_1753781476866_na1fn_L2hvbWUvdWJ1bnR1L3VwbG9hZC9zZWFyY2hfaW1hZ2VzLzU0TjFDeFlRelZhbQ.jpg?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvYWhQbTExT3NYUXZkVzAwTklJeU1BRC9zYW5kYm94L0t6RzR5QlV4eW1kZ2ZQWk9wU25YeHotaW1hZ2VzXzE3NTM3ODE0NzY4NjZfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwzVndiRzloWkM5elpXRnlZMmhmYVcxaFoyVnpMelUwVGpGRGVGbFJlbFpoYlEuanBnIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=FFIGjWnUkKELt27lmul3k10rQCaECPLxXRI0X93jfV-nzAzOy2Oy8fBw1u9iiAuXe7PcOYiEvjJigLkaU1Y8F-oxfEw8p5Lq0uvFpM2DAl9A7nuWXuCCJk3JvStRX0jO2ORLxVogxPnMiA79ZyVFsa0OaE4lz9vb6mSVvwXleIhOkn4EUTY3mxAKe3zdA~RldYuek1okrJIRmfFeHilBTDMxKh-9W6WafpsMCyY6BZdcFhG-ta6i~Wmheoeh~4TIYbVeKZwSxtOVvUA2IWakfCLjURRRyRskljvLsRZuKf9muVilCBRI6XTjg1F~Y~UdZLUVZvMtvYMLsIlYKJUePg__)
+![Git工作区、暂存区、版本库关系图](https://cdn.jsdelivr.net/gh/aqjsp/photos/KzG4yBUxymdgfPZOpSnXxz-images_1753781476866_na1fn_L2hvbWUvdWJ1bnR1L3VwbG9hZC9zZWFyY2hfaW1hZ2VzLzU0TjFDeFlRelZhbQ.jpg)
 
 ## 二、Git基础命令：日常操作速查
 
@@ -198,7 +178,7 @@ Git作为分布式版本控制系统，与远程仓库的交互是其核心功�
 
 #### Git常用命令速查表
 
-![](https://private-us-east-1.manuscdn.com/sessionFile/ahPm11OsXQvdW00NIIyMAD/sandbox/wT8M7smtOTPMpqy1QjvZTs-images_1753788053283_na1fn_L2hvbWUvdWJ1bnR1L3VwbG9hZC9zZWFyY2hfaW1hZ2VzL0ZtVkxlaFlkM1paTA.jpg?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvYWhQbTExT3NYUXZkVzAwTklJeU1BRC9zYW5kYm94L3dUOE03c210T1RQTXBxeTFRanZaVHMtaW1hZ2VzXzE3NTM3ODgwNTMyODNfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwzVndiRzloWkM5elpXRnlZMmhmYVcxaFoyVnpMMFp0Vmt4bGFGbGtNMXBhVEEuanBnIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=cK3YxUrf2nbu189DdjRspDdwnQTFUxrGmgFV4KH~DrjrTiBsyhHrmiTjeen8iCtiMl2zGUXX~tobn9GAUXv~vFeH1dKKSl3~rPIZheplxXvHpUaM6VEpk3dVqdRAbz4iXpssArhMTS0Ob~1OuiHI0yPA~EPMsRZY~9~mzyGn1s48CYZ-FcpGNzP3zH-B-9aqF1IKEN8RZjZdns9JzkJ-IIRj1Q2MBSsXh3qkIBBMKdvULc45PM6ej6M3MPeCDW0hGKdddus1msjfqrl39pi7cV~wnQ6Yh9rVitXofkINXpcY1mTlGAV42Fy-4oHWyR9LUKLwXPUbYg7WhIUagKI3UA__) 
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/wT8M7smtOTPMpqy1QjvZTs-images_1753788053283_na1fn_L2hvbWUvdWJ1bnR1L3VwbG9hZC9zZWFyY2hfaW1hZ2VzL0ZtVkxlaFlkM1paTA.jpg) 
 
 | 命令                         | 描述                           | 示例                                       |
 | ---------------------------- | ------------------------------ | ------------------------------------------ |

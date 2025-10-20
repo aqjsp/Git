@@ -1,6 +1,6 @@
 # 一、Git  
 
-Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如：Linux、kernel）,管理私人的文档和源代码也有很多优势（如：wsi-lgame-pro）.  ![image](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172148489.png)  
+Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如：Linux、kernel）,管理私人的文档和源代码也有很多优势（如：wsi-lgame-pro）.  ![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172148489.png)  
 
 ## 1、git clone  
 
