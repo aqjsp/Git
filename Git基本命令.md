@@ -1,54 +1,86 @@
-# Git  
-### 必知必会的Git命令  
+# Git基本命令
+
+日常开发够用的一组命令。工作区 / 暂存区 / 仓库怎么对应，见 [Git实战](./Git实战.md)；每条命令的细节见 [Git基本命令详解](./Git基本命令详解.md)。
+
+![工作区、暂存区、仓库](./image/three-trees.svg)
+
+### 必知必会的Git命令
 
 #### git checkout -b xxx
 
-git checkout xxx是指切换到xxx相当于复制了remote的仓库到本地的xxx分支上，-b就是branch，即创建新的分支，所以这条指令的意思就是创建并切换到xxx。  
+创建并切换到新分支 `xxx`，基线是当前 HEAD。等价于：
 
-#### git diff 
+```bash
+git branch xxx
+git checkout xxx
+```
 
-查看自己对代码做出的改变，也就是查看暂存区与disk区文件的差异。  
+Git 2.23 起更推荐 `git switch -c xxx`。`git checkout xxx`（没有 `-b`）是切换到已有分支，不会「把远程仓库复制到本地」。远程分支要先 `git fetch`，再 `git switch -c xxx origin/xxx`。
+
+#### git diff
+
+默认比较 **工作区 vs 暂存区**（还没 `add` 的改动）。不是「暂存区 vs 磁盘」这种说法。
+
+```bash
+git diff              # 工作区 vs 暂存区
+git diff --cached     # 暂存区 vs HEAD（即将提交的内容）
+git diff HEAD         # 工作区+暂存区 vs 最新提交
+```
 
 #### git add xxx
 
-将xxx文件添加到暂存区。  
+把工作区里 `xxx` 的改动写入暂存区（Index）。`git add -p` 可以按 hunk 挑选。
 
 #### git commit
 
-将暂存区内容添加到local区的当前分支。  
+把暂存区做成一次新的 commit，挂到当前分支上。仓库对象在 `.git/objects`，不是什么「local 区」。
+
+```bash
+git commit -m "feat: 说明这次改了什么"
+```
 
 #### git push
 
-将local去的LocalBranchName分支推送到RemoteHostName主机的同名分支（若加-f表示无视本地与远程分支的差异强行push）。  
+把本地当前分支推到远程对应分支。默认推到 `origin` 上跟踪的那个。`-f` / `--force` 会覆盖远程历史，已经有人基于旧历史开发时不要用；非要改写用 `--force-with-lease`。
 
 #### git branch -d xxx
 
-删除本地的git分支；git branch -D xxx：不加-D表示创建新的local分支xxx，加-D表示强制删除local分xxx。  
+删除已经合并过的本地分支。`-D` 是强制删除（没合并也删）。**没有**「不加 -D 表示创建」这种用法。创建分支是 `git branch xxx` 或 `git switch -c xxx`。
 
 #### git pull
 
-同上，不过改成从远程主机下载远程分支并与本地同名分支合并。  
+`git fetch` + `git merge`（或你配置成 rebase）。把远程跟踪分支的更新取回来，合并进当前分支。
 
 #### git rebase xxx
 
-假设当前分支与xxx分支存在共同部分common，该指令用xxx分支包括common在内的整体替换当前分支的common部分（原先xxx分支内容为common->diversityA，当前分支内容为common->diversityB，执行完该指令后当前分支内容为common->diversityA->disverityB）。  
+把当前分支上「相对 xxx 多出来的 commit」一个个摘下来，接到 xxx 的最新尖上。历史变直，但 commit 哈希会变。
 
-#### git checkout main
+原先：`common → A`（xxx）和 `common → B`（当前）。rebase 后当前变成 `common → A → B'`（`B'` 是新哈希）。
 
-切换回main分支。  
+没有 `git base` 这条命令。想把当前分支接到 main 上，写 `git rebase main`。
 
-#### git checkout xxx
+![merge 留分叉，rebase 变直](./image/merge-rebase.svg)
 
-回到xxx分支。  
+#### git checkout main / git checkout xxx
 
-#### git pull origin master(main)
+切换分支。现在更推荐 `git switch main`。`git checkout -- file` 是丢工作区改动，容易和切分支搞混，所以官方才拆出 `switch` 和 `restore`。
 
-将远端修改过的代码再更新到本地。  
+#### git pull origin main
 
-#### git base main
+从 `origin` 取 `main`，合并进当前分支。当前如果就在 `main` 上，等于更新本地 main。
 
-我在xxx分支上，先把main移过来，然后根据我的commit来修改成新的内容（中途可能会出现，rebase conflit ---> 手动选择保留哪段代码）。  
+#### git rebase main
 
-#### git push -f origin xxx
+我在功能分支上，把 main 的新提交移到我下面，再把我的 commit 一个个重放上去。冲突了就解决，然后 `git rebase --continue`；放弃用 `git rebase --abort`。
 
-把rebase后并且更新过的代码再push到远端github上（-f ---> 强行）。  
+#### git push --force-with-lease origin xxx
+
+rebase 之后远程还是旧哈希，普通 push 会被拒。`--force-with-lease` 只在远程没有别人新推的提交时才覆盖，比裸 `-f` 安全。公共分支（main / develop）不要 force push。
+
+![reset 三档：soft / mixed / hard](./image/reset-modes.svg)
+
+```bash
+git reset --soft HEAD~1    # 撤 commit，改动还在暂存区
+git reset HEAD~1           # 撤 commit，改动回工作区
+git reset --hard HEAD~1    # 撤 commit，改动丢掉
+```

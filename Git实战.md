@@ -1,6 +1,8 @@
+# Git实战
+
 ## 一、Git核心概念
 
-Git之所以强大，在于其独特的设计哲学。它并非简单地存储文件的差异，而是以“快照流”的形式记录项目状态。
+Git之所以强大，在于其独特的设计哲学。它并非简单地存储文件的差异，而是以“快照流”的形式记录项目状态。每次 commit 存的是当时整棵目录树的快照（未改的文件复用同一个 blob），不是「相对上一版的 diff 补丁」。diff 是事后算出来给人看的。
 
 #### 1. 版本库（Repository）
 
@@ -57,6 +59,10 @@ HEAD是一个特殊的指针，它总是指向你当前所在分支的最新提�
 它就像你的“焦点”，告诉你现在正在哪个分支上工作，以及这个分支的最新状态是什么。
 
 当你切换分支时，HEAD也会随之移动，指向新分支的最新提交。
+
+![工作区、暂存区、仓库：三次快照](./image/three-trees.svg)
+
+![Git 四种对象：blob / tree / commit / tag](./image/objects.svg)
 
 ![Git工作区、暂存区、版本库关系图](https://cdn.jsdelivr.net/gh/aqjsp/photos/KzG4yBUxymdgfPZOpSnXxz-images_1753781476866_na1fn_L2hvbWUvdWJ1bnR1L3VwbG9hZC9zZWFyY2hfaW1hZ2VzLzU0TjFDeFlRelZhbQ.jpg)
 
@@ -313,9 +319,11 @@ git commit -m "Merge branch 'feature/user-profile' and resolve conflicts"
 
 #### 3. 变基操作：`git rebase`——让历史更“整洁”
 
-`git rebase` 是另一种整合更改的方式，它不像 `merge` 那样会创建新的合并提交，而是尝试将你的分支提交“重放”到目标分支的最新提交之上。
+`git rebase` 是另一种整合更改的方式，它不像 `merge` 那样会创建新的合并提交，而是尝试将你的分支提交“重放”到目标分支的最新提交之上。重放出来的是新 commit（新哈希），原 commit 暂时还能在 `git reflog` 里找到。
 
 这会使你的提交历史看起来更“线性”，更“整洁”，仿佛所有开发都是在一条直线上进行的。
+
+![merge 保留分叉 vs rebase 变直](./image/merge-rebase.svg)
 
 ```bash
 # 假设你在 feature 分支，想把它的更改“变基”到 main 分支的最新状态上

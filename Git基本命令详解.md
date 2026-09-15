@@ -1,6 +1,14 @@
-# 一、Git  
+# Git基本命令详解
 
-Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如：Linux、kernel）,管理私人的文档和源代码也有很多优势（如：wsi-lgame-pro）.  ![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172148489.png)  
+Git是一个很强大的分布式版本管理工具，它不但适用于管理大型开源软件的源代码（如 Linux kernel），管理私人的文档和源代码也有很多优势。
+
+对象模型和三棵树先看这一张，再往下翻命令。没有 `git base` 这条命令，变基写 `git rebase`。
+
+![工作区、暂存区、仓库](./image/three-trees.svg)
+
+![Git 四种对象](./image/objects.svg)
+
+![](https://cdn.jsdelivr.net/gh/aqjsp/photos/202401172148489.png)  
 
 ## 1、git clone  
 
@@ -320,31 +328,31 @@ git --git-dir='./maleskine/.git' rev-parse --abbrev-ref HEAD
 ```
 
 通过设置--git-dir选项，也可以正确的获取到maleskine项目当前的分支名。git还有一个选项--work-tree可以指定git的工作目录。  
-## 7、git reset  
-将版本库还原到历史的某个时刻的状态  
+## 7、git reset
 
-```
-git reset --hard logid(logid的前几位即可)  
-```
+reset 动的是 HEAD、暂存区、工作区这三棵树，档位不同动的范围不同。不要一上来就 `--hard`。
 
-将版本库还原到上一次commit之前的状态  
+![reset 三档：soft 只动 HEAD，mixed 再对齐暂存区，hard 连工作区一起丢](./image/reset-modes.svg)
 
-```
-git reset --hard HEAD^   
-```
+将 HEAD 指到某个历史 commit（`--hard` 会把工作区和暂存区也对齐过去，未提交改动没了）：
 
-有时候，进行了错误的提交，但是还没有push到远程分支，想要撤销本次提交，可以使用git reset –-soft/hard命令。  
-回退到某个版本，只回退了commit的信息，代码修改过的没变。如果还要提交，直接commit即可；  
-
-```
-git reset –-soft 
+```bash
+git reset --hard <commit>
 ```
 
- 彻底回退到某个版本，本地的源码也会变为上一个版本的内容，撤销的commit中所包含的更改被冲掉，即commit与修改过代码都撤销，变为原来的某个版本；  
+只撤最近一次 commit，改动仍在暂存区，适合「提交信息写错了，重新 commit」：
 
+```bash
+git reset --soft HEAD^
 ```
-git reset -–hard
+
+默认 `--mixed`：撤 commit，改动回到工作区，暂存区清空，适合「刚才不该 add 进去」。
+
+```bash
+git reset HEAD^
 ```
+
+已经 push 过的 commit 不要 reset 后再强推。公开历史上要用 `git revert` 做一次反向提交。
 
 ##  8、git config  
 
@@ -536,9 +544,12 @@ git push origin --tags
 git tag -a [name] -m 'yourMessage'   
 ```
 
-# 二、Git与SVN比较  
+# 二、Git与SVN比较
 
-SVN是当前使用最多的版本控制工具。与它相比，Git最大的优势在于两点：易于本地增加分支和分布式的特性。  
+SVN 是集中式：每次提交都要连服务器，分支在服务器上是一份拷贝。Git 是分布式：完整历史在本地，分支只是指向某个 commit 的指针，创建几乎零成本。现在新项目几乎都用 Git；对比 SVN 是为了讲清楚「为什么分支便宜」。
+
+![merge 留分叉 vs rebase 变直，这是 Git 才有的日常操作](./image/merge-rebase.svg)
+
 ![image](https://raw.githubusercontent.com/aqjsp/Pictures/main/202401172149000.png)  
 
 ## 1、本地增加分支  
