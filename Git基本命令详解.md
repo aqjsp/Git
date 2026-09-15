@@ -4,17 +4,20 @@ Git是一个很强大的分布式版本管理工具，它不但适用于管理�
 
 ## 1、git clone  
 
-```git
-git clone https://github.com/...  
-git clone 支持多种协议，除了http/https以外，还支持ssh、git、本地文件协议等。  
-git clone http[s]:// example.com/...  
-git clone ssh://...  
-git clone git://...  
-git clone /opt/git/project.git  
-git clone file:///opt/git/...  
-git clone ftp[s]://example.com/...  
-git clone rsync://example.com/...  
+```bash
+git clone https://github.com/...
+```
 
+git clone 支持多种协议，除了 http/https 以外，还支持 ssh、git、本地文件协议等：
+
+```bash
+git clone http[s]://example.com/...
+git clone ssh://...
+git clone git://...
+git clone /opt/git/project.git
+git clone file:///opt/git/...
+git clone ftp[s]://example.com/...
+git clone rsync://example.com/...
 ```
 
 克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他主机，需要用git clone命令的-o选项指定。  
@@ -24,105 +27,184 @@ git clone -o jQuery https://github.com/jquery/jquery.git
 git clone -b 分支名  仓库地址  
 ```
 
-## 2、git remote  
-```
-git remote show命令加上主机名，可以查看该主机的详细信息  
-git remote show <主机名>  
-git remote add命令用于添加远程主机  
-git remote add <主机名><网址>  
-git remote rm命令用于删除远程主机  
-git remote rm <主机名>  
-git remote rename命令用于远程主机的改名  
-git remote rename <原主机名><新主机名> 
+## 2、git remote
+
+`git remote show` 加上主机名，可以查看该主机的详细信息：
+
+```bash
+git remote show <主机名>
 ```
 
-## 3、git fetch  
-一旦远程主机的版本有了更新，需要将这些更新取回本地，这时就需要用到git fetch命令。这个命令将某个远程主机的更新，全部取回本地。  
-git fetch命令通常用来查看其他人的进程，因为它取回的代码对你本地的开发代码没有影响。默认情况下，git fetch取回所有分支（branch）的更新，如果只想取回特定分支的更新，可以指定分支名。  
-git fetch <远程主机名><分支名>  
-比如，取回origin主机的master分支:  
-git fetch origin master  
-所取回的更新，在本地主机上要用“远程主机名/分支名”的形式读取。比如origin主机的master，就要用origin/master读取。  
+`git remote add` 用于添加远程主机：
 
-## 4、git branch  
-branch的基本操作：  
-
-```
-git branch // 查看本地所有分支  
-git branch -r // 查看远程所有分支  
-git branch -a // 查看本地和远程的所有分支  
-git branch -d  // 删除本地分支  
-git branch -d -r // 删除远程分支，删除后还需推送到服务器  
-git push origin // 删除后推送至服务器  
-git branch -m  // 重命名本地分支  
-
+```bash
+git remote add <主机名> <网址>
 ```
 
-git中一些选项解释：  
+`git remote rm` 用于删除远程主机：
 
-```
--d   --delete : 删除  
--D   --delete  --force的快捷键  
--f   --force ：强制  
--m   --move：移动或重命名  
--M   --move --force 的快捷键  
--r   --remote ：远程  
--a   --all ： 所有  
-
+```bash
+git remote rm <主机名>
 ```
 
-以上命令表示，本地主机的当前分支是master，远程分支是origin/master。  
-取回远程主机的更新以后，可以在它的基础上，使用git checkout命令创建一个新的分支。  
-git checkout -b newBranch origin/master  
-创建分支命令：git branch (branchname)  
-切换分支命令：git checkout (branchname)  
-合并分支命令：git merge  
-列出所有分支基本命令：git branch  
-git checkout -b (branchname) 来创建新分支并立即切换到该分支下  
-删除分支命令：  
-git branch -d (branchname)  
-git branch * master newtest  
-README  test.txt  test2.txt  
-git merge newtest  
-将newtest分支合并到主分支去,test2.txt文件被删除  
-以上命令表示在当前分支上，合并origin/master  
+`git remote rename` 用于远程主机改名：
 
-## 5、git pull与git push  
-git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。  
-git pull <远程主机名> <远程分支名>:<本地分支名>  
-比如，取回origin主机的next分支，与本地的master分支合并，需要这样写：  
-git pull origin next:master  
-如果远程分支是与当前分支合并，则冒号后面的部分可以省略。  
-git pull origin next  
-以上命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge  
-git fetch origin  
-git merge origin/next  
-在某些场合，git会自动在本地分支与远程分支之间，建立一种追踪关系（tracking）。比如，在git clone的时候，所有本地分支默认与远程主机的同名分支，建立追踪关系，也就是说，本地的master分支自动“追踪”origin/master分支。  
-git也允许手动建立追踪关系  
-git branch --set-upstream master origin/next  
-以上命令指定master分支追踪origin使用-u选项指定一个默认主机，这样后面就可以不加任何参数使用git push  
-git push origin --tags  
-最后，git push不会推送标签（tag），除非使用-tags选项。  
-以上命令使用-force选项，结果导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免使用-force选项。  
-git push --force origin  
-如果远程主机的版本比本地版本更新，推送时git会报错，要求现在本地做git pull合并差异，然后再推动到远程主机，这时，如果你一定要推送，可以使用-force选项。  
-上面命令表示，将所有本地分支都推动到origin主机  
-git push --all origin  
-还有一种情况，就是不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用-all选项  
-git config --global  push default matching 或者  git config --global  push.default  simple  
-不带任何参数的git  push，默认只推送当前分支，这叫做simple方式，此外还有一种matching方式，会推送所有有对应的远程分支的本地分支。git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式，如果需要修改这个命令，可以采用git config命令。  
-上面命令将本地的master分支推送到origin主机，同时指定为默认主机，后面就可以不加任何参数使用git push了  
+```bash
+git remote rename <原主机名> <新主机名>
+```
 
+## 3、git fetch
+
+一旦远程主机的版本有了更新，需要将这些更新取回本地，这时就需要用到 git fetch。这个命令将某个远程主机的更新全部取回本地。
+
+git fetch 通常用来查看其他人的进度，因为它取回的代码对你本地的开发代码没有影响。默认情况下，git fetch 取回所有分支（branch）的更新；如果只想取回特定分支，可以指定分支名：
+
+```bash
+git fetch <远程主机名> <分支名>
 ```
-git push -u origin master  
-git push  
+
+比如，取回 origin 主机的 master 分支：
+
+```bash
+git fetch origin master
 ```
+
+所取回的更新，在本地主机上要用「远程主机名/分支名」的形式读取。比如 origin 主机的 master，就要用 `origin/master` 读取。
+
+## 4、git branch
+
+branch 的基本操作：
+
+```bash
+git branch          # 查看本地所有分支
+git branch -r       # 查看远程所有分支
+git branch -a       # 查看本地和远程的所有分支
+git branch -d       # 删除本地分支
+git branch -d -r    # 删除远程分支，删除后还需推送到服务器
+git push origin     # 删除后推送至服务器
+git branch -m       # 重命名本地分支
+```
+
+git 中一些选项解释：
+
+```text
+-d   --delete              删除
+-D   --delete --force      强制删除的快捷写法
+-f   --force               强制
+-m   --move                移动或重命名
+-M   --move --force        强制重命名的快捷写法
+-r   --remote              远程
+-a   --all                 所有
+```
+
+以上命令表示，本地主机的当前分支是 master，远程分支是 origin/master。
+
+取回远程主机的更新以后，可以在它的基础上，使用 git checkout 创建一个新的分支：
+
+```bash
+git checkout -b newBranch origin/master
+```
+
+常用分支操作：
+
+```bash
+git branch (branchname)            # 创建分支
+git checkout (branchname)          # 切换分支
+git merge                          # 合并分支
+git branch                         # 列出所有分支
+git checkout -b (branchname)       # 创建新分支并立即切换过去
+git branch -d (branchname)         # 删除分支
+```
+
+示例：把 newtest 合并进当前分支后，`test2.txt` 会被删掉。
+
+```text
+git branch * master newtest
+README  test.txt  test2.txt
+git merge newtest
+```
+
+以上命令表示在当前分支上，合并 origin/master。
+
+## 5、git pull与git push
+
+git pull 的作用是：取回远程主机某个分支的更新，再与本地的指定分支合并。
+
+```bash
+git pull <远程主机名> <远程分支名>:<本地分支名>
+```
+
+比如，取回 origin 主机的 next 分支，与本地的 master 分支合并：
+
+```bash
+git pull origin next:master
+```
+
+如果远程分支是与当前分支合并，冒号后面的部分可以省略：
+
+```bash
+git pull origin next
+```
+
+以上命令表示，取回 origin/next 分支，再与当前分支合并。实质上等同于先 fetch，再 merge：
+
+```bash
+git fetch origin
+git merge origin/next
+```
+
+在某些场合，git 会自动在本地分支与远程分支之间建立追踪关系（tracking）。比如 `git clone` 的时候，所有本地分支默认与远程主机的同名分支建立追踪关系，也就是说本地的 master 自动「追踪」origin/master。
+
+git 也允许手动建立追踪关系：
+
+```bash
+git branch --set-upstream master origin/next
+```
+
+以上命令指定 master 分支追踪 origin/next。使用 `-u` 选项指定一个默认主机，后面就可以不加任何参数使用 `git push`。
+
+git push 默认不会推送标签（tag），除非加上 `--tags`：
+
+```bash
+git push origin --tags
+```
+
+如果一定要用 `--force`，结果会导致远程主机上更新的版本被覆盖。除非你很确定要这样做，否则应该尽量避免：
+
+```bash
+git push --force origin
+```
+
+如果远程主机的版本比本地更新，推送时 git 会报错，要求先在本地做 git pull 合并差异，然后再推到远程。这时如果你一定要推送，可以使用 `--force`。
+
+把所有本地分支都推到 origin 主机：
+
+```bash
+git push --all origin
+```
+
+不管是否存在对应的远程分支，将本地的所有分支都推送到远程主机，这时需要使用 `--all`。
+
+不带任何参数的 `git push`，默认只推送当前分支，这叫做 simple 方式；还有一种 matching 方式，会推送所有有对应远程分支的本地分支。Git 2.0 之前默认 matching，现在默认 simple。需要改的话用 `git config`：
+
+```bash
+git config --global push.default matching
+git config --global push.default simple
+```
+
+上面命令将本地的 master 分支推送到 origin 主机，同时指定为默认主机，后面就可以不加任何参数使用 git push 了：
+
+```bash
+git push -u origin master
+git push
+```
+
 
 如果当前分支只有一个追踪分支，那么主机名就可以省略。  
 上面命令表示，将当前分支推送到origin主机的对应分支。  
 
-```
-git push originnxt
+```bash
+git push origin next
 ```
 
 如果当前分支与远程分支存在追踪关系，git  pull就可以省略远程分支名。  
@@ -134,8 +216,9 @@ git pull origin
  如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略。  
 上面命令表示删除origin主机的master分支。  
 
-```
-git push origin ：master 或者 git push origin --delete master
+```bash
+git push origin :master
+git push origin --delete master
 ```
 
  如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。  
@@ -148,14 +231,17 @@ git push origin master
 如果省略远程分支名，则表示将本地分支推送与之存在“追踪关系”的远程分支，如果该远程分支不存在，则会被新建。  
 注意：分支推动顺序的写法是<来源地>：<目的地>，所有git pull是<远程分支>：<本地分支>，而git push是<本地分支>：<远程分支>。 
 
-```
-git push <远程主机名> <本地分支名>：<远程分支名>  
-git  push命令用于将本地分支的更新推送到远程主机  
-git pull -p 或者 git fetch --prune origin  
-git fetch -p  
+```bash
+git push <远程主机名> <本地分支名>:<远程分支名>
 ```
 
-加上参数-p就会在本地删除远程已经删除的分支  
+git push 用于将本地分支的更新推送到远程主机。加上 `-p` 会在本地删除远程已经删除的分支：
+
+```bash
+git pull -p
+git fetch --prune origin
+git fetch -p
+```  
 
 ```
 git pull --rebase <远程主机名> <远程分支名>：<本地分支名>  
