@@ -30,7 +30,7 @@ git clone rsync://example.com/...
 
 克隆版本库的时候，所使用的远程主机自动被Git命名为origin。如果想用其他主机，需要用git clone命令的-o选项指定。  
 
-```
+```bash
 git clone -o jQuery https://github.com/jquery/jquery.git  
 git clone -b 分支名  仓库地址  
 ```
@@ -217,7 +217,7 @@ git push origin next
 
 如果当前分支与远程分支存在追踪关系，git  pull就可以省略远程分支名。  
 
-```
+```bash
 git pull origin
 ```
 
@@ -232,7 +232,7 @@ git push origin --delete master
  如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支。  
 上面命令表示，将本地的master分支推送到origin主机的master分支，如果后者不存在，则会被新建  
 
-```
+```bash
 git push origin master  
 ```
 
@@ -251,21 +251,21 @@ git fetch --prune origin
 git fetch -p
 ```  
 
-```
+```bash
 git pull --rebase <远程主机名> <远程分支名>：<本地分支名>  
 ```
 
 如果合并需要采用rebase模式，可以使用-rebase选项。  
 上面命令表示，当前分支自动与唯一一个追踪分支进行合并。  
 
-```
+```bash
 git pull  
 ```
 
 如果当前分支只有一个追踪分支，连远程主机名都可以省略。  
 上面命令表示，本地的当前分支自动与对应的origin主机“追踪分支”（remote-tracking  branch）进行合并。  
 
-```
+```bash
 git pull origin  
 ```
 
@@ -274,7 +274,7 @@ git pull origin
 准备工作：  
 在工作区中建立目录a/b/c，进入该目录。  
 
-```
+```bash
 cd /path/to/my/workspace/demo/  
 mkdir -p a/b/c  
 cd /path/to/my/workspace/demo/a/b/c 
@@ -282,48 +282,48 @@ cd /path/to/my/workspace/demo/a/b/c
 
  显示版本库 .git目录所在的位置  
 
-```
+```bash
 git rev-parse --git-dir  
 /path/to/my/workspace/demo/.git  
 ```
 
 显示工作区根目录  
 
-```
+```bash
 git rev-parse --show-toplevel  
 /path/to/my/workspace/demo
 ```
 
 显示相对于工作区根目录的相对目录  
 
-```
+```bash
 git rev-parse --show-prefix  
 a/b/c  
 ```
 
 显示从当前目录（cd）后退（up）到工作区的根的深度  
 
-```
+```bash
 git rev-parse --show-cdup  
 ../../..
 ```
 
 获取当前最后一个commit hash  
 
-```
+```bash
 git rev-parse HEAD  
 ```
 
 这个命令中的HEAD可以替换成branch name，如:  
 
-```
+```bash
 git rev-parse dev获取dev分支的最后一次提交  
 git rev-parse --abbrev-ref HEAD获取当前分支名
 ```
 
 这个命令都说是获取当前的xx，也就是说运行命令时所在的git目录，如果在任何目录运行可以获取当前的xx，需要明确指出 .git目录的位置以及git对应的工作目录。  
 
-```
+```bash
 git --git-dir='./maleskine/.git' rev-parse --abbrev-ref HEAD  
 ```
 
@@ -358,14 +358,14 @@ git reset HEAD^
 
 添加版本库的用户名到本地配置文件  
 
-```
+```bash
 git config --global user.name 'username'
 ```
 
 
 添加版本库的用户邮箱到本地配置文件  
 
-```
+```bash
 git config --global user.emal 'emal' 
 ```
 
@@ -374,31 +374,31 @@ git config --global user.emal 'emal'
 git diff命令显示已写入缓存与已修改但尚未写入缓存的改动的区别。  
 尚未缓存的改动：  
 
-```
+```bash
 git diff
 ```
 
 查看已缓存的改动:  
 
-```
+```bash
 git diff --cached  
 ```
 
 查看已缓存的与未缓存的所有改动:  
 
-```
+```bash
 git diff HEAD  
 ```
 
 显示摘要而非整个diff:  
 
-```
+```bash
 git diff --stat 
 ```
 
 举个栗子：  
 
-```
+```bash
 git status -s  
 git diff  
 git add hello.php  
@@ -408,47 +408,47 @@ git diff --cached
 
 ## 10、git commit  
 
-```
+```bash
 git commit -m 'test comment from w3cschool.cn' 
 ```
 
  提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步  
 
-```
+```bash
 git add  
 git commit -am 'changes to hello file'
 ```
 
 表示提交的信息中带有署名信息  
 
-```
+```bash
 git commit --signoff -m 'xxx'  
 ```
 
 表示对上一次提交的信息,进行修改提交  
 
-```
+```bash
 git commit --amend 'xxx'  
 ```
 
 ## 11、git rm  
 将文件从缓存区中移除  
 
-```
+```bash
 git rm  
 git rm hello.php
 ```
 
 将文件从缓存区和你的硬盘中（工作目录）删除。 如果要在工作目录中留着该文件  
 
-```
+```bash
 git rm file  
 git rm --cached   
 ```
 
 ## 12、git log  
 
-```
+```bash
 git log  查看提交历史  
 git log --oneline            --oneline 选项来查看历史记录的简洁的版本  
 git log --oneline --graph    -graph 选项，查看历史中什么时候出现了分支、合并。  
@@ -460,87 +460,87 @@ git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges
 ## 13、git tag  
 查看所有标签  
 
-```
+```bash
 git tag
 ```
 
 -a选项意为“创建一个带注解的标签”。不用-a选项也可以执行，但它不会记录这标签是啥时候打的，谁打的，也不会让你添加标签的注解 
 
-```
+```bash
 git tag -a v1.0  
 git log --online --decorate --graph  --decorate 时，我们可以看到我们的标签  
 ```
 
 追加标签  
 
-```
+```bash
 git tag -a v0.9 85fc7e7  
 git log --oneline --decorate --graph  
 ```
 
 指定标签信息命令  
 
-```
+```bash
 git tag -a  -m "w3cschool.cn标签"
 ```
 
 PGP标签命令  
 
-```
+```bash
 git tag -s  -m "w3cschool.cn标签"
 ```
 
 查看版本：  
 
-```
+```bash
 git tag
 ```
 
 创建版本：  
 
-```
+```bash
 git tag [name]  
 ```
 
 删除版本：  
 
-```
+```bash
 git tag -d [name]  
 ```
 
 查看远程版本：  
 
-```
+```bash
 git tag -r  
 ```
 
 创建远程版本(本地版本push到远程):  
 
-```
+```bash
 git push origin [name]
 ```
 
 删除远程版本：  
 
-```
+```bash
 git push origin :refs/tags/[name] 
 ```
 
  合并远程仓库的tag到本地：  
 
-```
+```bash
 git pull origin --tags  
 ```
 
 上传本地tag到远程仓库：  
 
-```
+```bash
 git push origin --tags
 ```
 
 创建带注释的tag：  
 
-```
+```bash
 git tag -a [name] -m 'yourMessage'   
 ```
 
